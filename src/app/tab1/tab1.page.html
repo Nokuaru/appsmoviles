@@ -1,19 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Por hacer
+      Historia Clínica
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Recetas Médicas</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-  <app-listas [tipo]="'por hacer'"></app-listas>
-
+<!--Agregamos el botoncito para agregar pacientes nuevos
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="AgregarLista()">
+    <ion-fab-button size="small" (click)=CrearHistoria()>
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
-  </ion-fab>
+  </ion-fab>-->
+
+  
+<ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <ion-icon name="chevron-up-circle"></ion-icon>
+  </ion-fab-button>
+  <ion-fab-list side="top">
+    <ion-fab-button (click)="CrearHistoria()" >
+      <ion-icon name="document" > </ion-icon>
+    </ion-fab-button>
+    <ion-fab-button (click)="addPhotoToGallery()" >
+      <ion-icon name="camera-outline" ></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<app-historiac></app-historiac>
+
 
 </ion-content>

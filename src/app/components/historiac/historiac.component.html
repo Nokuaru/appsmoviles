@@ -1,0 +1,28 @@
+<!--Agregamos los cards para cada paciente --> 
+
+
+<ion-card *ngFor="let pacienteItem of historiaService.historiaclinica">
+  <ion-card-header>
+    <ion-card-title>{{ pacienteItem.nombre +" "+ pacienteItem.apellido }}</ion-card-title>
+    <ion-card-subtitle>{{ pacienteItem.dni + " - " + pacienteItem.obrasocial  }}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    
+    <ion-list>
+      <ion-item  *ngFor="let consulta of pacienteItem.item" (click)="verDetalle(pacienteItem)" fill="clear">
+
+        <ion-label>{{ consulta.fecha }} <br> {{consulta.descripcion}}</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-card-content>
+
+  <!--Agregamos los botones para Editar, Eliminar-->
+  <ion-button (click)="agregarVisita(pacienteItem)" fill="clear">Añadir Consulta</ion-button>
+  <ion-button (click)="editarPaciente(pacienteItem)" fill="clear">Editar</ion-button>
+  <ion-button (click)="eliminarPaciente(pacienteItem)" fill="clear" color="danger" >Eliminar</ion-button>
+  
+
+
+
+</ion-card>

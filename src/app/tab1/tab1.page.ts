@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
-import { ListaService } from '../services/lista.service';
+import { HistoriaService } from '../services/historia.service';
+import { PhotoService } from 'src/app/services/photo.service';
+
 
 @Component({
   selector: 'app-tab1',
@@ -9,53 +11,95 @@ import { ListaService } from '../services/lista.service';
 })
 export class Tab1Page {
 
-  constructor(    
+  constructor(
     public alertController: AlertController,
     public toastController: ToastController,
-    private listaService: ListaService
+    private historiaService: HistoriaService,
+    public photoService: PhotoService,
+    
+  ) { }
 
-  ) {}
+  
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
 
-  async AgregarLista(){
-    let alerta = await this.alertController.create(
-      {
-        header:"Agregar lista",
-        inputs:[
-          {
-            type: "text",
-            name: "titulo",
-            placeholder: "Ingrese el nombre de la lista"
-          }
-        ],
-        buttons:[
-          {
-            text: "Cancelar",
-            role: "cancel"
-          },
-          {
-            text: "Crear",
-            handler: (data: any) => {
-              let isValid: boolean = this.validInput(data);
-              if(isValid){
-                let titulo = data.titulo;
-                let wasCreated = this.listaService.crearLista(titulo);
-                if(wasCreated){
-                  this.presentToast("Lista creada correctamente");
-                }
+}
+
+  async CrearHistoria() {
+    let alerta = await this.alertController.create({
+      header: "Crear historia clínica"
+      ,
+      inputs: [
+        {
+          type: "text",
+          name: 'pacienteNombre',
+          placeholder: "Ingresar nombre del paciente"
+        },
+        {
+          type: "text",
+          name: "pacienteApellido",
+          placeholder: 'Ingresar apellido del paciente'
+        },
+
+        {
+          type: "text",
+          name: "pacienteDNI",
+          placeholder: 'Ingresar DNI del paciente'
+        },
+
+        {
+          type: "text",
+          name: "pacienteObraSocial",
+          placeholder: 'Ingresar Obra social'
+        },
+        {
+          type: "date",
+          name: "pacienteNacimiento",
+          placeholder: 'Ingresar apellido del paciente'
+        },
+        {
+          type: "textarea",
+          name: "pacienteDescripcion",
+          placeholder: 'Información complementaria'
+        }
+
+      ],
+      buttons: [
+        {
+          text: "Cancelar",
+          role: "cancel"
+        },
+        {
+          text: "Crear",
+          handler: (data: any) => {
+            let isValid: boolean = this.validInput(data);
+            if (isValid) {
+              let pacienteNombre = data.pacienteNombre;
+              let pacienteApellido = data.pacienteApellido;
+              let pacienteDNI = data.pacienteDNI;
+              let pacienteObraSocial = data.pacienteObraSocial;
+              let pacienteNacimiento = data.pacienteNacimiento;
+              let pacienteDescripcion = data.pacienteDescripcion;
+              let wasCreated = this.historiaService.crearPaciente(pacienteNombre, pacienteApellido, pacienteDNI, pacienteObraSocial, pacienteNacimiento, pacienteDescripcion);
+              if (wasCreated) {
+                this.presentToast("Paciente creado");
               }
+
             }
+
           }
-        ]
-      });
+        }
+      ]
+    });
     await alerta.present();
-    console.log("Hice click!!");
+    console.log("Click en el boton");
   }
 
-  validInput(input: any): boolean{
-    if(input && input.titulo){
+  validInput(input: any): boolean {
+    if (input && input.pacienteNombre) {
       return true;
     }
-    this.presentToast("Debe ingresar un valor");
+    this.presentToast("Debe ingresar un nombre");
     return false;
   }
 
@@ -69,4 +113,9 @@ export class Tab1Page {
     toast.present();
   }
 
+
+
+
+
 }
+

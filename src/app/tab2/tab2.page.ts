@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
+import { HistoriaService } from '../services/historia.service';
+import { PhotoService } from 'src/app/services/photo.service';
 
 @Component({
   selector: 'app-tab2',
@@ -7,6 +10,21 @@ import { Component } from '@angular/core';
 })
 export class Tab2Page {
 
-  constructor() {}
+  constructor(
+    public historiaService: HistoriaService,
+    public alertController: AlertController,
+    public toastController: ToastController,
+    public photoService: PhotoService,
+    
+  ) { }
+
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
+  }
+
+  async ngOnInit() {
+    await this.photoService.loadSaved();
+  }
+
 
 }

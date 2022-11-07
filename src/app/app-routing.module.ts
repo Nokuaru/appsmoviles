@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'agregar/:idLista',
+    path: 'agregar/:dniHistoria',
     loadChildren: () => import('./agregar/agregar.module').then( m => m.AgregarPageModule)
   }
 ];
