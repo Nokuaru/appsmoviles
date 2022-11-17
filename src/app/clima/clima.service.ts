@@ -9,7 +9,7 @@ export class ClimaService {
 
   async temperaturaActual() {
     try {
-      const temperatura = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=34.67&lon=-58.44&units=metric&appid=522f6e8a92c6f236482ac8c5ca55dd61',
+      const temperatura = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=-34.67&lon=-58.44&units=metric&appid=522f6e8a92c6f236482ac8c5ca55dd61',
 
         {
           method: 'GET',
@@ -24,8 +24,11 @@ export class ClimaService {
 
       const resultado = (await temperatura.json());
       const el = document.createElement('div');
-
-      el.textContent = 'La temperatura en Buenos Aires es: ' + resultado.main.temp + 'º';
+      let decimal, tempcels = resultado.main.temp
+      
+  
+      el.textContent = 'La temperatura en Buenos Aires es: ' + Math.round(tempcels) + 'º';
+      
 
       el.setAttribute('title', 'my-title');
       el.style.color = 'white';
@@ -34,7 +37,7 @@ export class ClimaService {
       const tempera = document.getElementById('tempera');
 
       tempera?.appendChild(el);
-      return resultado.main.temp
+      return tempcels
 
 
 
