@@ -5,6 +5,7 @@ import { Historia } from 'src/app/models/historia.model';
 import { HistoriaService } from 'src/app/services/historia.service';
 import { Consultas } from 'src/app/models/consultas.model';
 import { PhotoService } from 'src/app/services/photo.service';
+import { ClimaService } from 'src/app/clima/clima.service';
 
 
 
@@ -14,6 +15,7 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./historiac.component.scss'],
 })
 export class HistoriacComponent implements OnInit {
+  clima:any
 
 
   constructor(
@@ -22,13 +24,17 @@ export class HistoriacComponent implements OnInit {
     public toastController: ToastController,
     public photoService: PhotoService,
     private router: Router,
+    public climaService: ClimaService,
+
     
   ) { }
 
   async ngOnInit() {
     await this.photoService.loadSaved();
+      var data = this.climaService.temperaturaActual()
+      this.clima = data;
   }
-
+  
 
   addPhotoToGallery() {
     this.photoService.addNewToGallery();
@@ -123,27 +129,15 @@ export class HistoriacComponent implements OnInit {
   /**
   * @function eliminarPaciente
   * @description Función eliminar el paciente seleccionado
-  * @param { Historia } pacienteItem paciente a archivar
+  * @param { Historia } pacienteItem paciente a eliminar
   */
    eliminarPaciente(pacienteItem: Historia) {
     this.historiaService.eliminarPaciente(pacienteItem)
 
   }
-
-  /**
-  * @function archivarPaciente
-  * @description Función archivar el paciente seleccionado
-  * @param { Historia } pacienteItem paciente a archivar
-  */
-  archivarPaciente(pacienteItem: Historia) {
-    console.log("Archivar", pacienteItem);
-  }
-
-
    
   async agregarVisita(pacienteItem: Historia)
   {
-    console.log("this is the one" + pacienteItem.dni)
     let alerta = await this.alertController.create({
       header: "Agregar visita"
       ,

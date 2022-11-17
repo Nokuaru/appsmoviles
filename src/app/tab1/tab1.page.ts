@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { HistoriaService } from '../services/historia.service';
 import { PhotoService } from 'src/app/services/photo.service';
-
+import { ClimaService } from '../clima/clima.service';
 
 @Component({
   selector: 'app-tab1',
@@ -10,12 +10,14 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
+  clima:any
 
   constructor(
     public alertController: AlertController,
     public toastController: ToastController,
     private historiaService: HistoriaService,
     public photoService: PhotoService,
+    public climaService: ClimaService,
     
   ) { }
 
@@ -114,8 +116,7 @@ export class Tab1Page {
   }
 
 
-
-
-
-}
+    } 
+    
+  
 
