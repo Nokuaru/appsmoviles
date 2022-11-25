@@ -31,7 +31,7 @@ export class ClimaService {
       
 
       el.setAttribute('title', 'my-title');
-      el.style.color = 'white';
+      el.style.color = 'gray';
       el.style.fontSize = '12px';
 
       const tempera = document.getElementById('tempera');
